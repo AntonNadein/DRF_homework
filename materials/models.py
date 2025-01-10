@@ -14,9 +14,6 @@ class Course(models.Model):
         blank=True,
         verbose_name="Описание",
     )
-    lesson = models.ForeignKey(
-        "Lesson", on_delete=models.PROTECT, null=True, blank=True, related_name="lessons", verbose_name="Уроки"
-    )
 
     def __str__(self):
         return f"{self.title}"
@@ -36,6 +33,9 @@ class Lesson(models.Model):
     )
     description = models.TextField(null=True, blank=True, verbose_name="Описание")
     video_url = models.URLField(max_length=400, null=True, blank=True, verbose_name="Ссылка на видео")
+    course = models.ForeignKey(
+        "Course", on_delete=models.PROTECT, null=True, blank=True, related_name="lesson", verbose_name="Курс"
+    )
 
     def __str__(self):
         return f"{self.title}"
