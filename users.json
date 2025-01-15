@@ -1,0 +1,65 @@
+[
+  {
+    "model": "users.modeluser",
+    "pk": 1,
+    "fields": {
+      "password": "pbkdf2_sha256$870000$zvYe4pW8NIOdFGtggUwseu$m+kIg9g7GSc3aeHZJcsyTdUen2VUcwcc/i0q9X7XFvs=",
+      "last_login": "2025-01-14T10:42:46.438Z",
+      "is_superuser": true,
+      "username": "drf_admin",
+      "first_name": "",
+      "last_name": "",
+      "is_staff": true,
+      "is_active": true,
+      "date_joined": "2025-01-14T10:42:12.681Z",
+      "email": "test@test.ru",
+      "phone_number": null,
+      "avatar": "",
+      "country": null,
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "users.modeluser",
+    "pk": 2,
+    "fields": {
+      "password": "1234",
+      "last_login": null,
+      "is_superuser": false,
+      "username": "test1",
+      "first_name": "",
+      "last_name": "",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2025-01-14T10:43:12Z",
+      "email": "test1@test.ru",
+      "phone_number": null,
+      "avatar": "",
+      "country": null,
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "users.modeluser",
+    "pk": 3,
+    "fields": {
+      "password": "1234",
+      "last_login": null,
+      "is_superuser": false,
+      "username": "test2",
+      "first_name": "",
+      "last_name": "",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2025-01-14T10:43:55Z",
+      "email": "test2@test.ru",
+      "phone_number": null,
+      "avatar": "",
+      "country": null,
+      "groups": [],
+      "user_permissions": []
+    }
+  }
+]
