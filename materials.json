@@ -1,0 +1,102 @@
+[
+{
+    "model": "materials.course",
+    "pk": 2,
+    "fields": {
+        "title": "Python",
+        "preview": "",
+        "description": "Курс пайтон для начинающих.",
+        "owner": 4
+    }
+},
+{
+    "model": "materials.course",
+    "pk": 3,
+    "fields": {
+        "title": "Java",
+        "preview": "",
+        "description": "Курс Java разработчика.",
+        "owner": 4
+    }
+},
+{
+    "model": "materials.course",
+    "pk": 4,
+    "fields": {
+        "title": "Пустой курс1",
+        "preview": "",
+        "description": "Пустой курс",
+        "owner": 6
+    }
+},
+{
+    "model": "materials.course",
+    "pk": 5,
+    "fields": {
+        "title": "Test",
+        "preview": "",
+        "description": "Курс Java разработчика.",
+        "owner": 6
+    }
+},
+{
+    "model": "materials.lesson",
+    "pk": 1,
+    "fields": {
+        "title": "Generic",
+        "preview": "",
+        "description": "Good car.",
+        "video_url": null,
+        "course": null,
+        "owner": 4
+    }
+},
+{
+    "model": "materials.lesson",
+    "pk": 4,
+    "fields": {
+        "title": "Как устоены змеи!",
+        "preview": "",
+        "description": "Вводной урок по Python",
+        "video_url": null,
+        "course": 2,
+        "owner": 6
+    }
+},
+{
+    "model": "materials.lesson",
+    "pk": 5,
+    "fields": {
+        "title": "Типы данных",
+        "preview": "",
+        "description": "Типы данных",
+        "video_url": null,
+        "course": 2,
+        "owner": 6
+    }
+},
+{
+    "model": "materials.lesson",
+    "pk": 6,
+    "fields": {
+        "title": "Основы синтаксиса",
+        "preview": "",
+        "description": "Основы синтаксиса",
+        "video_url": null,
+        "course": 2,
+        "owner": 4
+    }
+},
+{
+    "model": "materials.lesson",
+    "pk": 7,
+    "fields": {
+        "title": "Основы синтаксиса Java",
+        "preview": "",
+        "description": "Основы синтаксиса Java",
+        "video_url": null,
+        "course": 3,
+        "owner": 4
+    }
+}
+]
