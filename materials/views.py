@@ -1,13 +1,18 @@
 from rest_framework import generics, viewsets
+from rest_framework.generics import get_object_or_404
 from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
+from rest_framework.views import APIView
 
-from materials.models import Course, Lesson
+from materials.models import Course, Lesson, Subscription
+from materials.paginators import MaterialsPaginator
 from materials.serializers import CourseLessonSerializer, CourseSerializer, LessonSerializer
 from users.permissions import IsModer, IsOwner
 
 
 class CourseViewSet(viewsets.ModelViewSet):
     queryset = Course.objects.all()
+    pagination_class = MaterialsPaginator
 
     def get_serializer_class(self):
         if self.action == "retrieve":
@@ -44,6 +49,7 @@ class LessonListAPIView(generics.ListAPIView):
     serializer_class = LessonSerializer
     queryset = Lesson.objects.all()
     permission_classes = [IsAuthenticated, IsModer]
+    pagination_class = MaterialsPaginator
 
 
 class LessonRetrieveAPIView(generics.RetrieveAPIView):
@@ -61,3 +67,33 @@ class LessonUpdateAPIView(generics.UpdateAPIView):
 class LessonDestroyAPIView(generics.DestroyAPIView):
     queryset = Lesson.objects.all()
     permission_classes = [IsAuthenticated, ~IsModer | IsOwner]
+
+
+class SubscriptionAPIView(APIView):
+    """Управление подпиской"""
+
+    permission_classes = [IsAuthenticated]
+
+    def post(self, *args, **kwargs):
+        """Включение и отключение подписки"""
+        subscriber = self.request.user
+        course_id = self.request.data.get("course")
+        course_item = get_object_or_404(Course, id=course_id)
+        subs_item = Subscription.objects.filter(subscriber=subscriber, course=course_item)
+
+        # Если подписка существует, то получаем её
+        if subs_item.exists():
+            subs_item = Subscription.objects.get(subscriber=subscriber, course=course_item)
+            # изменение существующей подписки
+            if subs_item.is_tag:
+                subs_item.is_tag = False
+                message = "Подписка удалена"
+            else:
+                subs_item.is_tag = True
+                message = "Подписка добавлена"
+            subs_item.save()
+        # Если подписка НЕ существует, создаем её
+        else:
+            Subscription.objects.create(subscriber=subscriber, course=course_item, is_tag=True)
+            message = "Подписка добавлена"
+        return Response({"message": message})

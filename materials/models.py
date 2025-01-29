@@ -51,3 +51,20 @@ class Lesson(models.Model):
     class Meta:
         verbose_name = "урок"
         verbose_name_plural = "уроки"
+
+
+class Subscription(models.Model):
+    subscriber = models.ForeignKey(
+        settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="subscription", null=True, blank=True
+    )
+    course = models.ForeignKey(
+        "Course", on_delete=models.PROTECT, null=True, blank=True, related_name="subscription", verbose_name="Курс"
+    )
+    is_tag = models.BooleanField(default=False)
+
+    def __str__(self):
+        return f"Подписка {self.is_tag} от {self.subscriber.username} на курс {self.course}"
+
+    class Meta:
+        verbose_name = "подписка"
+        verbose_name_plural = "Подписка"
