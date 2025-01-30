@@ -2,7 +2,7 @@ from rest_framework import serializers
 from rest_framework.fields import SerializerMethodField
 
 from .models import Course, Lesson, Subscription
-from .validators import VIdeoURLValidator
+from .validators import VideoURLValidator
 
 
 class SubscriptionSerializer(serializers.ModelSerializer):
@@ -47,12 +47,11 @@ class CourseSerializer(serializers.ModelSerializer):
 class LessonSerializer(serializers.ModelSerializer):
     """Сериализатор урока"""
 
+    video_url = serializers.URLField(required=False, validators=[VideoURLValidator(field="video_url")])
+
     class Meta:
         model = Lesson
         fields = "__all__"
-        validators = [
-            VIdeoURLValidator(field="video_url"),
-        ]
 
 
 class CourseLessonSerializer(serializers.ModelSerializer):
