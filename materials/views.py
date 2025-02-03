@@ -1,4 +1,6 @@
+from drf_yasg.utils import swagger_auto_schema
 from rest_framework import generics, viewsets
+from rest_framework.decorators import action
 from rest_framework.generics import get_object_or_404
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
@@ -74,6 +76,8 @@ class SubscriptionAPIView(APIView):
 
     permission_classes = [IsAuthenticated]
 
+    @swagger_auto_schema(method="post", auto_schema=None)
+    @action(detail=False, methods=["post"])
     def post(self, *args, **kwargs):
         """Включение и отключение подписки"""
         subscriber = self.request.user
