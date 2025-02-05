@@ -9,6 +9,7 @@ from rest_framework.views import APIView
 from materials.models import Course, Lesson, Subscription
 from materials.paginators import MaterialsPaginator
 from materials.serializers import CourseLessonSerializer, CourseSerializer, LessonSerializer
+from materials.tasks import send_subscriber_email
 from users.permissions import IsModer, IsOwner
 
 
@@ -35,6 +36,16 @@ class CourseViewSet(viewsets.ModelViewSet):
         course = serializer.save()
         course.owner = self.request.user
         course.save()
+
+    def perform_update(self, serializer):
+        """Отправление писем подписчикам курса"""
+        course = serializer.save()
+        subscriber = course.subscription.all()
+        subscriber_email_list = []
+        for s in subscriber:
+            subscriber_email_list.append(s.subscriber.email)
+        send_subscriber_email.delay(subscriber_email_list)
+        serializer.save()
 
 
 class LessonCreateAPIView(generics.CreateAPIView):
