@@ -3,9 +3,9 @@ version: '3.9'
 services:
   online-learning:
     build: .
-    command: python manage.py runserver 0.0.0.0:8000
+    command: bash -c "python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
     volumes:
-      - .:/code
+      - .:/app
       - media_volume:/code/media
       - static_volume:/code/static
     ports:
@@ -26,14 +26,6 @@ services:
       interval: 30s
       timeout: 10s
       retries: 5
-
-  migrate:
-    build: .
-    command: python manage.py migrate
-    depends_on:
-      - db
-    env_file:
-      - ./.env
 
   redis:
     image: redis
@@ -64,7 +56,6 @@ services:
       - .:/app
     depends_on:
       - redis
-      - migrate
     env_file:
       - ./.env
 
