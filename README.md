@@ -85,7 +85,7 @@ docker-compose up -d
 ```
 docker-compose ps
 ```
-Для просмотра логов всех контейнеров:
+- Для просмотра логов всех контейнеров:
 ```
 docker-compose logs
 ```
@@ -93,9 +93,167 @@ docker-compose logs
 ```
 docker-compose down
 ```
+## Настройка CI/CD и деплой.
+
+## Настройка сервера и ручной деплой приложения с использованием Docker.
+
+1. ###  ***Настройка сервера на примере операционной системы Linux Ubuntu.***
+- Откройте терминал и выполните команду для обновления списка пакетов:
+```
+sudo apt update
+```
+- Обновления всех установленных пакетов до их последних версий. Эта команда может потребовать подтверждения перед
+началом обновления.
+```
+sudo apt upgrade
+```
+- ***Установка Docker*** https://docs.docker.com/engine/install/ubuntu/#install-using-the-repository
+  - Добавить официальный ключ GPG Docker (Выполняйте построчно): 
+```
+sudo apt-get update
+sudo apt-get install ca-certificates curl
+sudo install -m 0755 -d /etc/apt/keyrings
+sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
+sudo chmod a+r /etc/apt/keyrings/docker.asc
+```
+- Добавьте репозиторий в источники Apt (Эта команда может потребовать подтверждения):
+```
+
+echo \
+  "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu \
+  $(. /etc/os-release && echo "${UBUNTU_CODENAME:-$VERSION_CODENAME}") stable" | \
+  sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+sudo apt-get update
+```
+- Установка Docker последней версии.
+```
+sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+```
+- Проверка выполнения установки.
+```
+sudo docker run hello-world
+```
+- В ответе вы должны получить *Hello from Docker!*
+- ***Настройка файрвола***
+- Сначала проверьте состояние файрвола с помощью команды
+```
+sudo ufw status
+```
+- Если файрвол отключен, активируйте его
+```
+sudo ufw enable
+```
+- Теперь откройте необходимые порты
+- Порт 80 для HTTP:
+```
+sudo ufw allow 80/tcp
+```
+- Порт 443 для HTTPS:
+```
+sudo ufw allow 443/tcp
+```
+- Порт Порт 22 нужен для работы протокола Secure Shell (SSH):
+```
+sudo ufw allow 22/tcp
+```
+- Проверьте настройки файрвола, чтобы убедиться, что правила применились (порты 80,443 и 22 находятся в состоянии 
+ALLOW).
+```
+sudo ufw status
+```
+2. ### ***Ручной деплой приложения с использованием Docker.***
+- Перейдите в директорию, где вы хотите разместить код вашего приложения.
+- Затем выполните команду для клонирования репозитория (если вы клонируете главную ветку main):
+```
+https://github.com/AntonNadein/DRF_homework.git
+```
+- Если вы клонируете НЕ главную ветку. В этом случае будут загружены все ветки репозитория, но проверка будет 
+выполнена в указанной, и эта ветка станет настроенной локальной веткой:
+```
+git clone --branch <имя_ветки> https://github.com/AntonNadein/DRF_homework.git
+```
+- Добавьте переменные окружения для данного репозитория.
+```
+cd DRF_homework
+```
+```
+nano .env
+```
+***Данные требующиеся для запуска приложения***
+```
+SECRET_KEY=
+
+DEBUG=
+
+POSTGRES_DB=
+POSTGRES_USER=
+POSTGRES_PASSWORD=
+POSTGRES_HOST=
+PORT=
+POSGTRES_USER=
+
+STRIPE_SECRET_KEY=
+
+EMAIL_HOST=
+EMAIL_PORT=
+EMAIL_HOST_USER=
+EMAIL_HOST_PASSWORD=
+EMAIL_USE_TLS=
+EMAIL_USE_SSL=
+
+CELERY_BROKER_URL=
+CELERY_BROKER_BACKEND=
+```
+- Выполните команду для запуска контейнеров.
+```
+docker-compose up -d
+```
+- Остановка контейнеров.
+```
+docker-compose stop
+```
+- Удаление контейнеров.
+```
+docker-compose down
+```
+**Возможные проблемы:**
+- Добавить текущего пользователя, который вошёл в систему, в группу Docker. Если нужно добавить другого пользователя,
+то значение $USER следует заменить на желаемое имя пользователя
+```
+sudo usermod -aG docker $USER
+```
+-  Установить Docker Compose из репозитория Ubuntu.
+```
+sudo apt install docker-compose
+```
+
+3. ### ***Настройка GitHub Actions***
+
+1) **Клонируйте репозиторий непосредственно на локальную машину для внесения изменений в проект.**
+```
+git clone https://github.com/AntonNadein/DRF_homework.git
+```
+
+2) **Добавьте секретные данные**
+- В данном репозитории GitHub перейдите по пути **Settings > Secrets and variables > Actions**.
+- Добавьте секретные переменные:
+```
+ENV → Переменные окружения(указаны в пункте выше:"Данные требующиеся для запуска приложения")
+DOCKER_HUB_USERNAME → Ваш login в DOCKER
+DOCKER_ACCESS_TOKEN → Docker Hub token https://app.docker.com/settings/personal-access-tokens
+SSH_KEY → Серверный закрытый SSH-ключ 
+SSH_USER → login сервера (например: admin)
+SERVER_IP → IP сервера (например: 192.168.1.1)
+REPO_NAME → Имя репозитория (например: DRF_homework)
+```
+3) **Workflow:**
+- Автоматически запускается
+- Этапы workflow:
+	- ✅ lint→ ✅ tests → ✅ build → 🚀 deploy
 
 ## API Документация:
-http://127.0.0.1:8000/redoc/
+* http://127.0.0.1:8000/redoc/
+* http://${{ secrets.SERVER_IP }}/redoc/
 
 ## Лицензия:
 Этот проект не имеет лицензий.
