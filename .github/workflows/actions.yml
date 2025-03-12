@@ -44,7 +44,7 @@ jobs:
 
       - name: Create .env file
         run: |
-          echo "${{ secrets.ENV }}" > .env
+          echo "${{ secrets.ENV }}" | sed '/^#/d' > .env
 
       - name: Run tests
         run: python manage.py test
@@ -83,7 +83,7 @@ jobs:
           ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USER }}@${{ secrets.SERVER_IP }} << 'EOF'
             docker-compose down || true
             docker pull ${{ secrets.DOCKER_HUB_USERNAME }}/myapp:${{ github.sha }}
-            echo "${{ secrets.ENV }}" > .env
+            echo "${{ secrets.ENV }}" | sed '/^#/d' > .env
             docker-compose up -d
             docker run -d --name myapp -p 80:8000 ${{ secrets.DOCKER_HUB_USERNAME }}/myapp:${{ github.sha }}
           EOF
