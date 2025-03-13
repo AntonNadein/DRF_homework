@@ -11,3 +11,5 @@ celery==5.4.0
 eventlet==0.39.0
 django-celery-beat==2.7.0
 drf-yasg==1.21.8
+gunicorn==23.0.0
+flake8==7.1.1
