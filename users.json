@@ -1,0 +1,193 @@
+[
+{
+    "model": "users.modeluser",
+    "pk": 1,
+    "fields": {
+        "password": "pbkdf2_sha256$870000$zvYe4pW8NIOdFGtggUwseu$m+kIg9g7GSc3aeHZJcsyTdUen2VUcwcc/i0q9X7XFvs=",
+        "last_login": "2025-01-14T11:06:04.549Z",
+        "is_superuser": true,
+        "username": "drf_admin",
+        "first_name": "",
+        "last_name": "",
+        "is_staff": true,
+        "is_active": true,
+        "date_joined": "2025-01-14T10:42:12.681Z",
+        "email": "test@test.ru",
+        "phone_number": null,
+        "avatar": "",
+        "country": null,
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "users.modeluser",
+    "pk": 2,
+    "fields": {
+        "password": "1234",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "test1",
+        "first_name": "",
+        "last_name": "",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2025-01-14T10:43:12Z",
+        "email": "test1@test.ru",
+        "phone_number": null,
+        "avatar": "",
+        "country": null,
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "users.modeluser",
+    "pk": 3,
+    "fields": {
+        "password": "1234",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "test0",
+        "first_name": "",
+        "last_name": "",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2025-01-14T10:43:55Z",
+        "email": "test2@test.ru",
+        "phone_number": null,
+        "avatar": "",
+        "country": null,
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "users.modeluser",
+    "pk": 4,
+    "fields": {
+        "password": "pbkdf2_sha256$870000$wkbM0BJ1GPl1033SJwoc1E$YJfYyKA9vKfH3thImOcWwyxk1kuLlofIZcMA8gEJOpU=",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "Fynjy",
+        "first_name": "",
+        "last_name": "",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2025-01-21T10:46:38.881Z",
+        "email": "test3@test.ru",
+        "phone_number": null,
+        "avatar": "",
+        "country": null,
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "users.modeluser",
+    "pk": 6,
+    "fields": {
+        "password": "pbkdf2_sha256$870000$ZIthXuVl0ZCcEcwFooDFl0$Q4R1cYyF98HXkEHFPTgEuuq4fcwIg7K+RaNI8jWBG9M=",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "qdqd",
+        "first_name": "",
+        "last_name": "",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2025-01-21T12:03:28Z",
+        "email": "test4@test.ru",
+        "phone_number": null,
+        "avatar": "",
+        "country": null,
+        "groups": [
+            1
+        ],
+        "user_permissions": []
+    }
+},
+{
+    "model": "users.payment",
+    "pk": 1,
+    "fields": {
+        "user": 2,
+        "payment_date": "2025-01-13",
+        "paid_course": null,
+        "paid_lesson": 4,
+        "amount": "5000.00",
+        "payment_method": "cash"
+    }
+},
+{
+    "model": "users.payment",
+    "pk": 2,
+    "fields": {
+        "user": 2,
+        "payment_date": "2025-01-13",
+        "paid_course": 3,
+        "paid_lesson": null,
+        "amount": "15000.00",
+        "payment_method": "cash"
+    }
+},
+{
+    "model": "users.payment",
+    "pk": 3,
+    "fields": {
+        "user": 2,
+        "payment_date": "2025-01-14",
+        "paid_course": null,
+        "paid_lesson": 5,
+        "amount": "2000.00",
+        "payment_method": "cash"
+    }
+},
+{
+    "model": "users.payment",
+    "pk": 4,
+    "fields": {
+        "user": 2,
+        "payment_date": "2025-01-14",
+        "paid_course": null,
+        "paid_lesson": 6,
+        "amount": "2500.00",
+        "payment_method": "transfer"
+    }
+},
+{
+    "model": "users.payment",
+    "pk": 5,
+    "fields": {
+        "user": 3,
+        "payment_date": "2025-01-13",
+        "paid_course": 2,
+        "paid_lesson": null,
+        "amount": "25000.00",
+        "payment_method": "transfer"
+    }
+},
+{
+    "model": "users.payment",
+    "pk": 6,
+    "fields": {
+        "user": 3,
+        "payment_date": "2025-01-13",
+        "paid_course": null,
+        "paid_lesson": 7,
+        "amount": "3000.00",
+        "payment_method": "cash"
+    }
+},
+{
+    "model": "users.payment",
+    "pk": 7,
+    "fields": {
+        "user": 3,
+        "payment_date": "2025-01-14",
+        "paid_course": 3,
+        "paid_lesson": null,
+        "amount": "15000.00",
+        "payment_method": "transfer"
+    }
+}
+]
